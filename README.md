@@ -10,6 +10,10 @@ These are some of the technologies used:
 
  - [Apollo GraphQL](https://www.apollographql.com/docs/)
  - [Express.js](https://expressjs.com/en/starter/hello-world.html)
+ - [MongoDB](https://www.mongodb.com/try/download/enterprise)
+ - [Mongoose](https://mongoosejs.com/docs/guide.html)
+ - [Postgres](https://www.postgresql.org)
+ - [Json Web Token](https://www.npmjs.com/package/jsonwebtoken)
 
 ### Initialize the project
 
