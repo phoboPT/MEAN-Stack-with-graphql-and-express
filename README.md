@@ -37,11 +37,11 @@ to run the server, run this command on your terminal:
 npm run dev
 ```
 
-and access the serve at this uri https://localhost:3000 and  https://localhost:3000/graphql for the graqphql playground
+and access the server at this uri https://localhost:3000 and  https://localhost:3000/graphql for the graqphql playground
 
 #### GraphQL Schema
 
-This file [schema.js](graphql/schema.js) contains the business logic and CRUD functionality.
+This file [schema.js](graphql/schema.js) contains the data definitions.
 #### GraphQL Resolvers
 
 This file [resolvers.js](graphql/resolvers.js) contains the business logic and CRUD functionality.
