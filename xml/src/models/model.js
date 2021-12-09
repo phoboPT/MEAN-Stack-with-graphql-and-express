@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
-
+import { v1 } from "uuid";
 const Schema = mongoose.Schema;
+
 const productSchema = new Schema({
   name: {
     type: String,
@@ -22,6 +23,7 @@ const productSchema = new Schema({
   },
 });
 const shopSchema = new Schema({
+  _id: { type: String, default: v1 },
   name: {
     type: String,
     required: true,

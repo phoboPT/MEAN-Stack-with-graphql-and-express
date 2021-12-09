@@ -10,10 +10,13 @@ const graphqlSchema = buildSchema(`
     }    
 
     type Product{
+        _id:ID!
         name: String!
         description: String!
         price: Float!
-        discount: Int        
+        discount: Int   
+        created_at: String!
+        updated_at: String!     
     }
     input ProductInput{
         name: String!
