@@ -3,42 +3,32 @@ import { v1 } from "uuid";
 const Schema = mongoose.Schema;
 
 const productSchema = new Schema({
-  name: {
-    type: String,
-    required: true,
-  },
-  description: {
-    type: String,
-    required: true,
-  },
-  price: {
-    type: Number,
-    min: [1],
-    required: true,
-  },
-  discount: {
-    type: Number,
-    min: [0],
-    required: false,
-  },
-});
-const shopSchema = new Schema({
   _id: { type: String, default: v1 },
+  id: { type: String, required: true },
   name: {
     type: String,
-    required: true,
   },
-  description: {
+  type: { type: String },
+  weight: { type: String },
+  mrp: { type: String },
+});
+const outletSchema = new Schema({
+  _id: { type: String, default: v1 },
+  id: { type: String },
+  name: {
     type: String,
-    required: true,
   },
+  size: { type: String },
   product: {
     type: [productSchema],
   },
-  created_at: { type: Date, default: Date.now },
+  year: { type: String },
+  locationType: { type: String },
+  sales: { type: String },
+  created_at: { type: Date, default: Date.now() },
   updated_at: { type: Date, default: Date.now() },
 });
 
-const shopModel = mongoose.model("Shop", shopSchema);
+const outletModel = mongoose.model("Outlet", outletSchema);
 
-export { shopModel };
+export { outletModel };

@@ -21,10 +21,10 @@ app.use(
   })
 );
 
-app.all("*", async (res, req) => {
+app.all("*", async (req, res) => {
   console.log("Auth");
 
-  console.log("Index, /BAD_URL, route don't exist Auth");
+  // console.log("Index, /BAD_URL, route don't exist Auth");
   res.send("Index, /BAD_URL, route don't exist Auth");
 });
 

@@ -1,18 +1,20 @@
 import pg from "pg";
 import dotenv from "dotenv";
 dotenv.config();
-
-// try {
-//   const client = new pg.Client({
-//     host: "localhost:5432",
-//     user: "mendix",
-//     password: "mendix",
-//     database: "db0",
-//   });
-//   client.connect();
-// } catch (error) {
-//   console.log(error);
-// }
+let client;
+try {
+  if (!client) {
+    client = new pg.Client({
+      host: "192.168.1.70",
+      user: "postgres",
+      password: "root",
+      database: "xml",
+    });
+    client.connect();
+  }
+} catch (error) {
+  console.log(error);
+}
 
 const query = (query) => {
   const start = Date.now();

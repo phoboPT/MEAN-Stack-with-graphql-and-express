@@ -1,23 +1,28 @@
-import { shopModel } from "../models/model.js";
+import { outletModel } from "../models/model.js";
 
 const graphqlResolver = {
-  async createShop({ productInput, product }) {
-    const shop = new shopModel({
-      name: productInput.name,
-      description: productInput.description,
-      product: product,
+  async createOutlet({ productInput: outletInput, product }) {
+    const outlet = new outletModel({
+      id: "0",
+      name: "OUT046",
+      size: "Small",
+      year: "2004",
+      locationType: "Tier 2",
+      sales: "2689.46",
+      product: [],
     });
-    const createdProduct = await shop.save();
+    const createdProduct = await outlet.save();
+    console.log(createdProduct);
     return {
       ...createdProduct._doc,
       _id: createdProduct._id.toString(),
     };
   },
 
-  async shops() {
-    const products = await shopModel.find();
+  async outlets() {
+    const products = await outletModel.find();
     return {
-      shop: products.map((q) => {
+      outlet: products.map((q) => {
         return {
           ...q._doc,
           _id: q._id.toString(),

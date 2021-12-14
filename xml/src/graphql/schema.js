@@ -1,22 +1,34 @@
 import { buildSchema } from "graphql";
 const graphqlSchema = buildSchema(`
-    type Shop{
+    type Outlet{
         _id:ID!
-        name: String!
-        description: String!        
-        product:[Product]
+        name: String!              
+        product:[Product]     
+        size: String!
+        year: String!
+        locationType: String!
+        sales: Float!
         created_at: String!
         updated_at: String!
-    }    
-
+    }
     type Product{
         _id:ID!
-        name: String!
-        description: String!
-        price: Float!
-        discount: Int   
+        name: String!       
+        type: String
+        weight: String
+        mrp:  String
         created_at: String!
         updated_at: String!     
+    }
+    type Types{
+        _id:ID!
+        name: String!       
+        created_at: String!
+        updated_at: String!   
+    }
+    type OutleSize{
+        _id:ID!
+        name: String!        
     }
     input ProductInput{
         name: String!
@@ -24,23 +36,19 @@ const graphqlSchema = buildSchema(`
         price: Float!
         discount: Int        
     }
-
-    type ShopData {
-        shop: [Shop]
-    }
-
- 
-    input ProductInputData {
+    type OutletData {
+        outlet: [Outlet]
+    } 
+    input OutletInput {
         name: String!
         description: String!       
-        
     }
     type RootQuery {
-        shops: ShopData
+        outlets: OutletData
     }
     type RootMutation {
-        createShop(productInput:ProductInputData,product:[ProductInput]): Shop!
-        updateProduct(id: ID!, productInput:ProductInputData): Product!
+        createOutlet(outletInput:OutletInput,product:[ProductInput]): Outlet!
+        updateProduct(id: ID!, product:ProductInput): Product!
         deleteProduct(id: ID!): Product!
     }
     schema {
