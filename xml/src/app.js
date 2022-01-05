@@ -4,14 +4,23 @@ import cors from "cors";
 import { graphqlHTTP } from "express-graphql";
 import graphqlSchema from "./graphql/schema.js";
 import graphqlResolver from "./graphql/resolvers.js";
-import { indexRouter } from "./routes/index.js";
 import { migrationRouter } from "./routes/migration.js";
+import { userRouter } from "./routes/users.js";
+import cookieSession from "cookie-session";
 
 const app = express();
 app.use(bodyParser.json());
+app.set("trust proxy", true);
 app.use(cors());
-app.use(indexRouter);
+app.use(
+  cookieSession({
+    signed: false,
+    secure: false,
+  })
+);
+
 app.use(migrationRouter);
+app.use(userRouter);
 app.use(
   "/graphql",
   graphqlHTTP({
@@ -22,9 +31,6 @@ app.use(
 );
 
 app.all("*", async (req, res) => {
-  console.log("Auth");
-
-  // console.log("Index, /BAD_URL, route don't exist Auth");
   res.send("Index, /BAD_URL, route don't exist Auth");
 });
 

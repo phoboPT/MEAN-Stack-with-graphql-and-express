@@ -1,16 +1,16 @@
-import { outletModel } from "../models/model.js";
+import { outletModel, productModel } from "../models/model.js";
 
 const graphqlResolver = {
   async createOutlet({ productInput: outletInput, product }) {
-    const outlet = new outletModel({
-      id: "0",
-      name: "OUT046",
-      size: "Small",
-      year: "2004",
-      locationType: "Tier 2",
-      sales: "2689.46",
-      product: [],
-    });
+    // const outlet = new outletModel({
+    //   id: "0",
+    //   name: "OUT046",
+    //   size: "Small",
+    //   year: "2004",
+    //   locationType: "Tier 2",
+    //   sales: "2689.46",
+    //   product: [],
+    // });
     const createdProduct = await outlet.save();
     console.log(createdProduct);
     return {
@@ -23,9 +23,13 @@ const graphqlResolver = {
     const products = await outletModel.find();
     return {
       outlet: products.map((q) => {
+        console.log("hey");
         return {
           ...q._doc,
           _id: q._id.toString(),
+          products: q.products.map(async (p) => {
+            return await productModel.findById(p);
+          }, []),
         };
       }),
     };

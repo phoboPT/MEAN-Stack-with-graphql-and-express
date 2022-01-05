@@ -5,10 +5,10 @@ let client;
 try {
   if (!client) {
     client = new pg.Client({
-      host: "192.168.1.70",
-      user: "postgres",
-      password: "root",
-      database: "xml",
+      host: process.env.PGHOST,
+      user: process.env.PGUSER,
+      password: process.env.PGPASSWORD,
+      database: process.env.PGDATABASE,
     });
     client.connect();
   }

@@ -3,7 +3,7 @@ const graphqlSchema = buildSchema(`
     type Outlet{
         _id:ID!
         name: String!              
-        product:[Product]     
+        products:[Product]     
         size: String!
         year: String!
         locationType: String!
