@@ -23,7 +23,6 @@ const graphqlResolver = {
     const products = await outletModel.find();
     return {
       outlet: products.map((q) => {
-        console.log("hey");
         return {
           ...q._doc,
           _id: q._id.toString(),

@@ -7,6 +7,11 @@ const router = express.Router();
 router.post("/user", async (req, res) => {
   try {
     const { email, password } = req.body;
+    const existUser = await userModel.findOne({ email });
+
+    if (existUser) {
+      return res.status(400).send("User already exist");
+    }
     const newUser = new userModel({
       email,
       password,
@@ -19,16 +24,47 @@ router.post("/user", async (req, res) => {
     res.status(500).send(`Something wrong happened: ${error}`);
   }
 });
-router.get("/me", async (req, res) => {
+
+router.put("/user", async (req, res) => {
   try {
-    const payload = jwt.verify(req.session.jwt, process.env.SECRET);
-    console.log(payload);
-    res.status(200).send(payload);
+    const { email, permission } = req.body;
+    const user = await userModel.findOne({ email });
+
+    if (!user) {
+      return res.status(400).send("User not found");
+    }
+    if (user.permission !== "admin") {
+      return res.status(400).send("You are not authorized to do this");
+    }
+    user.set({ permission, updated_at: Date.now() });
+    await user.save();
+
+    res.status(200).send(user);
   } catch (error) {
     console.log(error);
-    res.status(500).send(`An error as occured: ${error}`);
+    res.status(500).send(`Something wrong happened: ${error}`);
   }
 });
+
+router.delete("/user", async (req, res) => {
+  try {
+    const { email } = req.body;
+    const user = await userModel.findOne({ email });
+
+    if (!user) {
+      return res.status(400).send("User not found");
+    }
+    if (user.permission !== "admin") {
+      return res.status(400).send("You are not authorized to do this");
+    }
+    await user.delete();
+    res.status(200).send(user);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send(`Something wrong happened: ${error}`);
+  }
+});
+
 router.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -54,12 +90,11 @@ router.post("/login", async (req, res) => {
     );
 
     req.session = { jwt: userJwt };
+    res.status(200).send(existingUser);
   } catch (error) {
     console.log(error);
     res.status(500).send(`An error as occured: ${error}`);
   }
-
-  res.status(200).send(existingUser);
 });
 
 export { router as userRouter };

@@ -6,9 +6,12 @@ import graphqlSchema from "./graphql/schema.js";
 import graphqlResolver from "./graphql/resolvers.js";
 import { migrationRouter } from "./routes/migration.js";
 import { userRouter } from "./routes/users.js";
+import { outletRouter } from "./routes/outlets.js";
 import cookieSession from "cookie-session";
+import { productRouter } from "./routes/products.js";
 
 const app = express();
+const router = express.Router();
 app.use(bodyParser.json());
 app.set("trust proxy", true);
 app.use(cors());
@@ -19,8 +22,12 @@ app.use(
   })
 );
 
-app.use(migrationRouter);
-app.use(userRouter);
+router.use(migrationRouter);
+router.use(userRouter);
+router.use(outletRouter);
+router.use(productRouter);
+
+app.use("/api/", router);
 app.use(
   "/graphql",
   graphqlHTTP({
