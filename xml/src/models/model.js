@@ -11,7 +11,6 @@ const productSchema = new Schema(
       type: String,
       required: true,
     },
-
     type: { type: String, required: true },
     weight: { type: String, required: true },
     mrp: { type: String, required: true },

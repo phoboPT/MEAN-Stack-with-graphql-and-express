@@ -50,7 +50,7 @@ router.put("/outlets", async (req, res) => {
     if (!user) {
       return res.status(400).send("User not found");
     }
-    if (user.permission !== "admin") {
+    if (user.permission === "view") {
       return res.status(400).send("You are not authorized to do this");
     }
 
@@ -100,7 +100,7 @@ router.post("/outlets", async (req, res) => {
     if (!user) {
       return res.status(400).send("User not found");
     }
-    if (user.permission !== "admin") {
+    if (user.permission === "view") {
       return res.status(400).send("You are not authorized to do this");
     }
 
@@ -130,7 +130,7 @@ router.delete("/outlets", async (req, res) => {
     if (!user) {
       return res.status(400).send("User not found");
     }
-    if (user.permission !== "admin") {
+    if (user.permission === "view") {
       return res.status(400).send("You are not authorized to do this");
     }
 

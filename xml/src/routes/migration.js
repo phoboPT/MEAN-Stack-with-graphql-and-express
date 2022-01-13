@@ -43,24 +43,6 @@ router.get("/migrate/state", async (req, res) => {
     res.status(500).send(`An error as occured: ${error}`);
   }
 });
-router.get("/migrate/free", async (req, res) => {
-  try {
-    lock = false;
-    console.log(`lock ${lock}`);
-    res
-      .status(`${lock ? 423 : 200}`)
-      .send(
-        `${
-          lock
-            ? "A migration is already in progress, wait for the completion"
-            : "Migration free"
-        }`
-      );
-  } catch (error) {
-    console.log(error);
-    res.status(500).send(`An error as occured: ${error}`);
-  }
-});
 
 const migration = async () => {
   try {

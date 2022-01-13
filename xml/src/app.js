@@ -1,14 +1,14 @@
-import bodyParser from "body-parser";
-import express from "express";
-import cors from "cors";
 import { graphqlHTTP } from "express-graphql";
 import graphqlSchema from "./graphql/schema.js";
 import graphqlResolver from "./graphql/resolvers.js";
 import { migrationRouter } from "./routes/migration.js";
 import { userRouter } from "./routes/users.js";
 import { outletRouter } from "./routes/outlets.js";
-import cookieSession from "cookie-session";
 import { productRouter } from "./routes/products.js";
+import cookieSession from "cookie-session";
+import bodyParser from "body-parser";
+import express from "express";
+import cors from "cors";
 
 const app = express();
 const router = express.Router();
@@ -38,7 +38,7 @@ app.use(
 );
 
 app.all("*", async (req, res) => {
-  res.send("Index, /BAD_URL, route don't exist Auth");
+  res.send("Index, /BAD_URL, route don't exist in Auth");
 });
 
 export { app };

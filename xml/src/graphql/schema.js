@@ -2,6 +2,7 @@ import { buildSchema } from "graphql";
 const graphqlSchema = buildSchema(`
     type Outlet{
         _id:ID!
+        id:String!
         name: String!              
         products:[Product]     
         size: String!
@@ -13,6 +14,7 @@ const graphqlSchema = buildSchema(`
     }
     type Product{
         _id:ID!
+        id: String!
         name: String!       
         type: String
         weight: String
@@ -20,16 +22,7 @@ const graphqlSchema = buildSchema(`
         created_at: String!
         updated_at: String!     
     }
-    type Types{
-        _id:ID!
-        name: String!       
-        created_at: String!
-        updated_at: String!   
-    }
-    type OutleSize{
-        _id:ID!
-        name: String!        
-    }
+   
     input ProductInput{
         name: String!
         description: String!
