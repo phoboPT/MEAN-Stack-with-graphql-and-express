@@ -14,6 +14,8 @@ const productSchema = new Schema(
     type: { type: String, required: true },
     weight: { type: String, required: true },
     mrp: { type: String, required: true },
+    created_at: { type: Date, default: Date.now() },
+    updated_at: { type: Date, default: Date.now() },
   },
   {
     toJSON: {
@@ -74,8 +76,6 @@ const user = new Schema(
   {
     toJSON: {
       transform(doc, ret) {
-        ret.id = ret._id;
-        delete ret._id;
         delete ret.password;
         delete ret.__v;
       },

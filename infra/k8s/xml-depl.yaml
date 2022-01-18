@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: xml
-          image: phobopt/xml          
+          image: phobopt/xml
           env:            
             - name: MONGO_URI
               value: mongodb://xml-mongo-srv:27017/xml

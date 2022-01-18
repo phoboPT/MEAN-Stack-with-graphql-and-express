@@ -12,7 +12,7 @@ router.put("/products", currentUser, requiredAuth, async (req, res) => {
     if (!user) {
       return res.status(400).send("User not found");
     }
-    if (user.permission === "view") {
+    if (user.permission !== "admin" || user.permission !== "edit") {
       return res.status(400).send("You are not authorized to do this");
     }
     const product = await productModel.findById(id);

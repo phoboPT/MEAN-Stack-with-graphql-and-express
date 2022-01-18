@@ -13,7 +13,7 @@ const graphqlSchema = buildSchema(`
         updated_at: String!
     }
     type Product{
-        _id:ID!
+        _id:String!
         id: String!
         name: String!       
         type: String
@@ -29,20 +29,20 @@ const graphqlSchema = buildSchema(`
         price: Float!
         discount: Int        
     }
-    type OutletData {
-        outlet: [Outlet]
-    } 
+   
     input OutletInput {
         name: String!
         description: String!       
     }
     type RootQuery {
-        outlets: OutletData
+        outlets: [Outlet]!
+        outlet(id: String!): Outlet!
+        product(id: String!): Product!
+        products: [Product]!
     }
     type RootMutation {
         createOutlet(outletInput:OutletInput,product:[ProductInput]): Outlet!
-        updateProduct(id: ID!, product:ProductInput): Product!
-        deleteProduct(id: ID!): Product!
+
     }
     schema {
         query: RootQuery

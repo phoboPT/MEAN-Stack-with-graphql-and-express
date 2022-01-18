@@ -1,58 +1,57 @@
 import { outletModel, productModel } from "../models/model.js";
 
 const graphqlResolver = {
-  // async createOutlet({ productInput: outletInput, product }) {
-  //   const createdProduct = await outlet.save();
-  //   console.log(createdProduct);
-  //   return {
-  //     ...createdProduct._doc,
-  //     _id: createdProduct._id.toString(),
-  //   };
-  // },
-
   async outlets() {
     const outlets = await outletModel.find();
+    return outlets.map((q) => {
+      return {
+        ...q._doc,
+        products: q.products.map(async (p) => {
+          return await productModel.findById(p);
+        }),
+      };
+    });
+  },
+  async outlet(args) {
+    const outlet = await outletModel.findById(args.id);
+
     return {
-      outlet: outlets.map((q) => {
-        return {
-          ...q._doc,
-          _id: q._id.toString(),
-          products: q.products.map(async (p) => {
-            return await productModel.findById(p);
-          }, []),
-        };
+      _id: outlet._id,
+      id: outlet.id,
+      name: outlet.name,
+      size: outlet.size,
+      products: outlet.products.map(async (p) => {
+        return await productModel.findById(p);
       }),
+      year: outlet.year,
+      locationType: outlet.locationType,
+      sales: outlet.sales,
+      created_at: outlet.created_at,
+      updated_at: outlet.updated_at,
     };
   },
+  async product(args) {
+    const product = await productModel.findById(args.id);
+    return {
+      _id: product._id,
+      id: product.id,
+      name: product.name,
+      type: product.type,
+      weight: product.weight,
+      mrp: product.mrp,
+      created_at: product.created_at,
+      updated_at: product.updated_at,
+    };
+  },
+  async products() {
+    const product = await productModel.find();
 
-  // async updateProduct({ id, productInput }) {
-  //   const product = await model.findById(id);
-  //   if (!product) {
-  //     throw new Error("Product Not found!");
-  //   }
-  //   product.name = productInput.name;
-  //   product.description = productInput.description;
-  //   product.price = productInput.price;
-  //   product.discount = productInput.discount;
-
-  //   const updatedProduct = await product.save();
-  //   return {
-  //     ...updatedProduct._doc,
-  //     _id: updatedProduct._id.toString(),
-  //   };
-  // },
-
-  // async deleteProduct({ id, productInput }) {
-  //   const product = await model.findById(id);
-  //   if (!product) {
-  //     throw new Error("Product Not found!");
-  //   }
-  //   await model.findByIdAndRemove(id);
-  //   return {
-  //     ...product._doc,
-  //     _id: product._id.toString(),
-  //   };
-  // },
+    return product.map((q) => {
+      return {
+        ...q._doc,
+      };
+    });
+  },
 };
 
 export default graphqlResolver;
